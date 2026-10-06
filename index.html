@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Victor Wang — Founder-engineer building AI products</title>
-<meta name="description" content="Victor Wang builds AI products that ship and earn. Primary engineer behind AI search live on Coach, Kate Spade and Cartier; founding engineer at YC-backed Sixtyfour AI; three products of his own in market.">
+<meta name="description" content="Victor Wang builds AI products that ship and earn. Forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier; founding engineer at YC-backed Sixtyfour AI; three products of his own in market.">
 <meta property="og:title" content="Victor Wang — Founder-engineer building AI products">
 <meta property="og:description" content="AI search live on Coach, Kate Spade and Cartier. Founding engineer at a YC startup. Three products of his own, profitable with $0 in marketing.">
 <meta property="og:type" content="website">
@@ -334,6 +334,22 @@
   .dark { background: var(--ink); color: var(--paper); margin-top: clamp(72px, 10vw, 150px); }
   .dark .sec-head .mono { color: var(--muted-on-ink); }
   .dark .sec-note { color: var(--muted-on-ink); font-size: 17px; max-width: 34em; margin-top: 18px; }
+  .traction {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 16px;
+    border: 1px solid var(--line-on-ink); border-radius: 22px;
+    overflow: hidden;
+  }
+  .traction > div { padding: 24px 26px 22px; border-right: 1px solid var(--line-on-ink); }
+  .traction > div:last-child { border-right: 0; }
+  .traction dt { font-family: var(--serif); font-size: clamp(34px, 3.6vw, 54px); line-height: 1; letter-spacing: -.025em; }
+  .traction > div:nth-child(2) dt { color: var(--hot); }
+  .traction dd { margin: 10px 0 0; color: var(--muted-on-ink); font-size: 11px; }
+  @media (max-width: 960px) {
+    .traction { grid-template-columns: repeat(2, 1fr); }
+    .traction > div:nth-child(2) { border-right: 0; }
+    .traction > div:nth-child(-n+2) { border-bottom: 1px solid var(--line-on-ink); }
+  }
   .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .product {
     --tint: var(--hot);
@@ -538,7 +554,7 @@
       <div>
         <img class="avatar" src="assets/victor.jpg" alt="Victor Wang" width="72" height="72">
         <p class="lede">
-          I’m Victor, a founder-engineer. I was the <strong>primary engineer behind the AI search live on Coach, Kate Spade and Cartier</strong>, a founding engineer at a YC-backed startup, and I’ve taken three products of my own to market.
+          I’m Victor, a founder-engineer. I was the <strong>forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier</strong>, a founding engineer at a YC-backed startup, and I’ve taken three products of my own to close to 1,000 users.
         </p>
         <div class="hero-cta">
           <a class="btn solid" href="#products">See what I’ve shipped <span class="arr">↗</span></a>
@@ -590,16 +606,16 @@
       </div>
       <div class="stat-grid">
         <div class="stat reveal">
-          <div class="big">$MM<sup>+</sup></div>
-          <p><strong>Millions in contract revenue</strong> driven by the AI search platform I built at Zoovu.</p>
+          <div class="big"><sup>~</sup>$2M</div>
+          <p><strong>Close to $2M in contract revenue</strong> signed on the AI search platform I built at Zoovu.</p>
         </div>
         <div class="stat reveal" style="--d:.08s">
           <div class="big">2</div>
-          <p><strong>People on the team</strong> that put that platform into production. I was the primary engineer.</p>
+          <p><strong>People on the team.</strong> I wrote nearly all of the code and worked with the customers directly.</p>
         </div>
         <div class="stat reveal" style="--d:.16s">
-          <div class="big">$5K</div>
-          <p><strong>Profit in 4 months</strong> from my own mobile apps, with $0 spent on marketing.</p>
+          <div class="big"><sup>~</sup>1K</div>
+          <p><strong>Users on my own apps</strong>, from thousands of downloads and $0 spent on marketing.</p>
         </div>
         <div class="stat reveal" style="--d:.24s">
           <div class="big">2<sup>wks</sup></div>
@@ -618,6 +634,13 @@
           <p class="sec-note">Outside of work I build my own products end to end: idea, design, code, App Store, paying users. No marketing budget, just distribution I figured out myself.</p>
         </div>
       </div>
+
+      <dl class="traction reveal">
+        <div><dt>Thousands</dt><dd class="mono">Downloads overall</dd></div>
+        <div><dt>~1,000</dt><dd class="mono">Users, free and paying</dd></div>
+        <div><dt>$5K</dt><dd class="mono">Profit in 4 months</dd></div>
+        <div><dt>$0</dt><dd class="mono">Spent on marketing</dd></div>
+      </dl>
 
       <div class="products">
         <a class="product reveal" style="--tint:#7db4ff" href="http://hipip.app" target="_blank" rel="noopener">
@@ -665,13 +688,13 @@
           <div class="when mono">Oct 2025 — Sep 2026</div>
           <div>
             <h3><a href="https://zoovu.com/" target="_blank" rel="noopener">Zoovu</a></h3>
-            <p class="title">Applied AI Engineer</p>
+            <p class="title">Applied AI Engineer <span class="mono">Forward-deployed</span></p>
           </div>
           <ul>
-            <li><strong>Primary engineer on a two-person team</strong> that built and productionized AI e-commerce search now live on Coach, Kate Spade and Cartier.</li>
-            <li>Owned the platform end to end: ML, backend, data pipelines and production operations across multiple retailers.</li>
-            <li>Built the real-time search engine: LLM query understanding, hybrid dense/sparse retrieval, structured filtering and neural reranking.</li>
-            <li>Built the catalog intelligence platform behind it: taxonomy generation, AI product enrichment, embeddings and incremental indexing.</li>
+            <li><strong>Primary engineer on a two-person team</strong> that built and productionized AI e-commerce search now live on Coach, Kate Spade and Cartier. I wrote nearly all of the code.</li>
+            <li><strong>Forward-deployed with customers throughout</strong>: in constant contact with the retailers, turning what they needed into what shipped.</li>
+            <li>The platform has signed <strong>close to $2M in contract revenue</strong>.</li>
+            <li>Owned it end to end: ML, backend, data pipelines and production operations, from catalog ingestion and AI enrichment through LLM query understanding, hybrid retrieval and neural reranking.</li>
           </ul>
         </article>
 
@@ -713,9 +736,9 @@
         <div class="reveal">
           <p class="statement">I like being the person who takes a product from a <em>blank repo</em> to <em>paying customers</em>, and owns every layer in between.</p>
           <div class="body">
-            <p>I studied computer science at Cornell, interned twice at Amazon, then went straight to small teams where one engineer can move the whole product. At Sixtyfour AI I built AI agents for sales and business workflows. At Zoovu I was the primary engineer on a search platform that enterprise brands now run in production.</p>
+            <p>I studied computer science at Cornell, interned twice at Amazon, then went straight to small teams where one engineer can move the whole product. At Sixtyfour AI I built AI agents for sales and business workflows. At Zoovu I was the forward-deployed AI engineer on a two-person team: I wrote nearly all of the code for a search platform that enterprise brands now run in production, and I was the one talking to those customers.</p>
             <p>On my own time I build and sell consumer apps. That’s where I learned the parts engineering jobs don’t teach: finding a niche, getting distribution without a budget, and pricing something people will actually pay for.</p>
-            <p>I’m now focused on building as a full-time founder.</p>
+            <p>In September 2026 I left to focus full-time on building my own business.</p>
           </div>
         </div>
         <div class="reveal" style="--d:.1s">
@@ -785,12 +808,12 @@
 
   // ── Query console: a tiny keyword ranker over my background ──
   const DOCS = [
-    { t: 'AI search live on Coach, Kate Spade & Cartier', d: 'Primary engineer on a two-person team at Zoovu. Drove millions in contract revenue.', href: '#experience',
-      k: 'zoovu search ai coach kate spade cartier retail ecommerce e-commerce enterprise revenue contract millions money retrieval ranking reranking hybrid dense sparse vector embeddings llm query rag ml production brands luxury applied engineer primary small team two' },
+    { t: 'AI search live on Coach, Kate Spade & Cartier', d: 'Forward-deployed AI engineer on a two-person team at Zoovu. Close to $2M in contract revenue.', href: '#experience',
+      k: 'zoovu search ai coach kate spade cartier retail ecommerce e-commerce enterprise revenue contract millions money retrieval ranking reranking hybrid dense sparse vector embeddings llm query rag ml production brands luxury applied engineer primary small team two forward deployed fde customers customer clients sales' },
     { t: 'Founding Engineer at YC-backed Sixtyfour AI', d: 'Built an AI agent email platform from concept to launch in 2 weeks.', href: '#experience',
       k: 'sixtyfour yc ycombinator combinator startup founding founder engineer agents agent email inbox outreach sales gtm workflows campaigns 0→1 0-1 zero one launch fast speed weeks early stage' },
-    { t: '$5K profit in 4 months, $0 marketing', d: 'Solo-built mobile apps with paying subscribers and organic distribution.', href: '#products',
-      k: 'revenue profit money paying customers subscription mobile apps ios app store solo indie founder traction growth organic marketing distribution bootstrapped 0→1 0-1 zero one consumer monetize monetized' },
+    { t: '~1,000 users and $5K profit, $0 marketing', d: 'Solo-built apps: thousands of downloads in 4 months, all organic.', href: '#products',
+      k: 'revenue profit money paying customers subscription mobile apps ios app store solo indie founder traction users downloads growth organic marketing distribution bootstrapped 0→1 0-1 zero one consumer monetize monetized' },
     { t: 'Pip — an AI buddy for your Mac', d: 'Sees your screen, talks you through it, and points at exactly where to click.', href: '#products',
       k: 'pip mac macos desktop ai companion buddy assistant screen voice agent agents product consumer multimodal vision hipip computer use' },
     { t: 'PunchIQ — AI boxing coach', d: 'Video analysis of stance, form and footwork. 4.8★ on the App Store.', href: '#products',
