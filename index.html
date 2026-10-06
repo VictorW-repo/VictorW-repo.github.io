@@ -147,6 +147,12 @@
   }
   .lede { font-size: clamp(18px, 1.55vw, 22px); line-height: 1.45; max-width: 30em; }
   .lede strong { font-weight: 500; }
+  .avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    object-fit: cover; object-position: 50% 22%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink);
+  }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
   .btn {
     display: inline-flex; align-items: center; gap: 10px;
@@ -434,6 +440,16 @@
   }
   .about .statement em { color: var(--hot); }
   .about .body { margin-top: 28px; display: grid; gap: 16px; max-width: 36em; color: #3a372f; }
+  .portrait { margin: 0 14px 50px 0; position: relative; max-width: 280px; }
+  .portrait::before {
+    content: ""; position: absolute; inset: 14px -14px -14px 14px;
+    background: var(--hot); border-radius: 18px;
+  }
+  .portrait img {
+    position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5;
+    object-fit: cover; object-position: 50% 18%;
+    border-radius: 18px;
+  }
   .facts { display: grid; gap: 0; align-content: start; border-top: 1px solid var(--ink); }
   .fact { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
   .fact dt { color: var(--muted); padding-top: 3px; }
@@ -520,6 +536,7 @@
 
     <div class="hero-grid">
       <div>
+        <img class="avatar" src="assets/victor.jpg" alt="Victor Wang" width="72" height="72">
         <p class="lede">
           I’m Victor, a founder-engineer. I was the <strong>primary engineer behind the AI search live on Coach, Kate Spade and Cartier</strong>, a founding engineer at a YC-backed startup, and I’ve taken three products of my own to market.
         </p>
@@ -701,13 +718,18 @@
             <p>I’m now focused on building as a full-time founder.</p>
           </div>
         </div>
-        <dl class="facts reveal" style="--d:.1s">
+        <div class="reveal" style="--d:.1s">
+        <figure class="portrait">
+          <img src="assets/victor.jpg" alt="Portrait of Victor Wang" width="765" height="1100" loading="lazy">
+        </figure>
+        <dl class="facts">
           <div class="fact"><dt class="mono">Based</dt><dd>New York, NY</dd></div>
           <div class="fact"><dt class="mono">Education</dt><dd>Cornell University, B.S. Computer Science, 2025</dd></div>
           <div class="fact"><dt class="mono">Focus</dt><dd>AI search, agents, consumer apps</dd></div>
           <div class="fact"><dt class="mono">AI / ML</dt><dd class="stack"><span>LLMs</span><span>RAG</span><span>Fine-tuning</span><span>Hybrid search</span><span>Embeddings</span><span>Reranking</span><span>LLM evals</span><span>PyTorch</span></dd></div>
           <div class="fact"><dt class="mono">Systems</dt><dd class="stack"><span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>Pinecone</span><span>AWS</span><span>TypeScript</span></dd></div>
         </dl>
+        </div>
       </div>
     </div>
   </section>
