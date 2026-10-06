@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Victor Wang — Founder-engineer building AI products</title>
+<meta name="description" content="Victor Wang builds AI products that ship and earn. Primary engineer behind AI search live on Coach, Kate Spade and Cartier; founding engineer at YC-backed Sixtyfour AI; three products of his own in market.">
+<meta property="og:title" content="Victor Wang — Founder-engineer building AI products">
+<meta property="og:description" content="AI search live on Coach, Kate Spade and Cartier. Founding engineer at a YC startup. Three products of his own, profitable with $0 in marketing.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://victorw-repo.github.io/">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141310'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-style='italic' font-size='38' text-anchor='middle' fill='%23ff4319'%3Ev%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2eee5;
+    --paper-2: #e9e4d8;
+    --ink: #141310;
+    --ink-2: #1d1b17;
+    --muted: #6d685d;
+    --muted-on-ink: #a39d8f;
+    --line: rgba(20, 19, 16, .14);
+    --line-on-ink: rgba(242, 238, 229, .16);
+    --hot: #ff4319;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --gutter: clamp(18px, 4vw, 56px);
+    --max: 1320px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--hot); color: var(--paper); }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, p { margin: 0; }
+  em { font-style: italic; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .mono {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* Paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ───── Nav ───── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    transition: background .3s, border-color .3s;
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(242, 238, 229, .82);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom-color: var(--line);
+  }
+  .nav .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: var(--serif);
+    font-size: 24px;
+    text-decoration: none;
+    letter-spacing: -.01em;
+  }
+  .brand i { color: var(--hot); }
+  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 34px); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:not(.pill) { opacity: .7; transition: opacity .2s; }
+  .nav-links a:not(.pill):hover { opacity: 1; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    transition: background .2s, transform .2s;
+  }
+  .pill:hover { background: var(--hot); transform: translateY(-1px); }
+  @media (max-width: 640px) { .nav-links a:not(.pill) { display: none; } }
+
+  /* ───── Hero ───── */
+  .hero { padding-top: clamp(120px, 17vh, 190px); padding-bottom: clamp(48px, 7vw, 96px); position: relative; }
+  .eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; color: var(--muted); }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--hot);
+    box-shadow: 0 0 0 0 rgba(255, 67, 25, .5);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    70% { box-shadow: 0 0 0 10px rgba(255, 67, 25, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 67, 25, 0); }
+  }
+  .eyebrow .live { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(52px, 10.4vw, 168px);
+    line-height: .92;
+    letter-spacing: -.035em;
+    margin-top: clamp(22px, 3vw, 36px);
+  }
+  h1 .line { display: block; overflow: hidden; padding-bottom: .09em; margin-bottom: -.09em; }
+  h1 .line > span { display: block; transform: translateY(105%); animation: rise 1s cubic-bezier(.2, .8, .2, 1) forwards; }
+  h1 .line:nth-child(2) > span { animation-delay: .09s; }
+  h1 .line:nth-child(3) > span { animation-delay: .18s; }
+  @keyframes rise { to { transform: none; } }
+  h1 em { color: var(--hot); }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 5vw, 80px);
+    margin-top: clamp(36px, 5vw, 72px);
+    align-items: start;
+  }
+  .lede { font-size: clamp(18px, 1.55vw, 22px); line-height: 1.45; max-width: 30em; }
+  .lede strong { font-weight: 500; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background .2s, color .2s, border-color .2s, transform .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.solid { background: var(--ink); color: var(--paper); }
+  .btn.solid:hover { background: var(--hot); border-color: var(--hot); }
+  .btn.ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn .arr { transition: transform .2s; }
+  .btn:hover .arr { transform: translate(3px, -3px); }
+
+  /* Query console */
+  .console {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 20px;
+    padding: 8px;
+    box-shadow: 0 30px 60px -30px rgba(20, 19, 16, .55), 0 0 0 1px rgba(20, 19, 16, .9);
+    position: relative;
+  }
+  .console-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px 12px;
+    color: var(--muted-on-ink);
+  }
+  .console-head span:last-child { display: inline-flex; gap: 8px; align-items: center; }
+  .qbar {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--ink-2);
+    border: 1px solid var(--line-on-ink);
+    border-radius: 14px;
+    padding: 0 16px;
+    transition: border-color .2s;
+  }
+  .qbar:focus-within { border-color: var(--hot); }
+  .qbar svg { flex: none; opacity: .6; }
+  .qbar input {
+    flex: 1; min-width: 0;
+    background: none; border: 0; outline: 0;
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: clamp(16px, 1.4vw, 19px);
+    padding: 17px 0;
+  }
+  .qbar input::placeholder { color: var(--muted-on-ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 6px 4px; }
+  .chip {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted-on-ink);
+    background: none;
+    border: 1px solid var(--line-on-ink);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .chip:hover { color: var(--ink); background: var(--paper); border-color: var(--paper); }
+  .results { list-style: none; margin: 8px 0 0; padding: 0; min-height: 252px; }
+  .result {
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    gap: 14px;
+    align-items: start;
+    padding: 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    animation: slot .4s cubic-bezier(.2, .8, .2, 1) both;
+    transition: background .15s;
+  }
+  .result:hover { background: var(--ink-2); }
+  @keyframes slot { from { opacity: 0; transform: translateY(8px); } }
+  .result .rank { font-family: var(--mono); font-size: 12px; color: var(--muted-on-ink); padding-top: 5px; }
+  .result:first-child .rank { color: var(--hot); }
+  .result b { display: block; font-weight: 500; font-size: 16px; line-height: 1.3; }
+  .result small { display: block; color: var(--muted-on-ink); font-size: 14px; line-height: 1.4; margin-top: 3px; }
+  .score { font-family: var(--mono); font-size: 12px; color: var(--muted-on-ink); text-align: right; padding-top: 4px; }
+  .score i {
+    display: block; width: 56px; height: 3px; margin-top: 7px;
+    background: var(--line-on-ink); border-radius: 2px; overflow: hidden; position: relative;
+  }
+  .score i::after {
+    content: ""; position: absolute; inset: 0;
+    background: var(--hot);
+    transform-origin: left;
+    transform: scaleX(var(--s, 0));
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+  }
+  .empty { padding: 22px 14px; color: var(--muted-on-ink); font-size: 15px; }
+  .empty a { color: var(--paper); }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .result { grid-template-columns: 24px 1fr; } .score { display: none; } }
+
+  /* ───── Marquee ───── */
+  .marquee {
+    border-block: 1px solid var(--ink);
+    overflow: hidden;
+    padding: 18px 0;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .marquee-track { display: inline-flex; animation: scroll 38s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee span {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height: 1;
+    padding: 0 clamp(16px, 2vw, 30px);
+    display: inline-flex; align-items: center; gap: clamp(32px, 4vw, 60px);
+  }
+  .marquee span::after { content: "✳"; color: var(--hot); font-size: .6em; }
+  .marquee small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: -18px; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ───── Sections ───── */
+  section { padding: clamp(72px, 10vw, 150px) 0; }
+  .sec-head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(20px, 5vw, 80px);
+    align-items: end;
+    margin-bottom: clamp(36px, 5vw, 72px);
+  }
+  .sec-head .mono { color: var(--muted); display: flex; gap: 14px; align-items: center; }
+  .sec-head .mono::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 92px);
+    line-height: .98;
+    letter-spacing: -.03em;
+  }
+  h2 em { color: var(--hot); }
+  @media (max-width: 900px) { .sec-head { grid-template-columns: 1fr; align-items: start; } }
+
+  /* Numbers */
+  .numbers { padding-bottom: 0; }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--ink);
+  }
+  .stat {
+    padding: clamp(22px, 2.6vw, 36px) clamp(16px, 2vw, 28px) clamp(26px, 3vw, 44px) 0;
+    border-right: 1px solid var(--line);
+    padding-left: clamp(16px, 2vw, 28px);
+  }
+  .stat:first-child { padding-left: 0; }
+  .stat:last-child { border-right: 0; }
+  .stat .big {
+    font-family: var(--serif);
+    font-size: clamp(54px, 7.4vw, 116px);
+    line-height: .95;
+    letter-spacing: -.04em;
+    white-space: nowrap;
+  }
+  .stat .big sup { font-size: .42em; vertical-align: top; position: relative; top: .25em; margin-left: .06em; color: var(--hot); letter-spacing: 0; }
+  .stat p { margin-top: 14px; font-size: 15px; line-height: 1.45; color: var(--muted); max-width: 22em; }
+  .stat p strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(3) { padding-left: 0; }
+    .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .stat { border-right: 0; padding-left: 0; }
+    .stat + .stat { border-top: 1px solid var(--line); }
+  }
+
+  /* Products (dark) */
+  .dark { background: var(--ink); color: var(--paper); margin-top: clamp(72px, 10vw, 150px); }
+  .dark .sec-head .mono { color: var(--muted-on-ink); }
+  .dark .sec-note { color: var(--muted-on-ink); font-size: 17px; max-width: 34em; margin-top: 18px; }
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .product {
+    --tint: var(--hot);
+    position: relative;
+    display: flex; flex-direction: column;
+    min-height: 440px;
+    padding: 26px;
+    border-radius: 22px;
+    border: 1px solid var(--line-on-ink);
+    background: var(--ink-2);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .35s;
+  }
+  .product::before {
+    content: "";
+    position: absolute;
+    width: 420px; height: 420px;
+    left: var(--mx, 50%); top: var(--my, 0%);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--tint), transparent 62%);
+    opacity: 0;
+    transition: opacity .35s;
+    pointer-events: none;
+  }
+  .product:hover { transform: translateY(-6px); border-color: var(--tint); }
+  .product:hover::before { opacity: .2; }
+  .product > * { position: relative; }
+  .product .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .product img { width: 76px; height: 76px; border-radius: 18px; box-shadow: 0 0 0 1px var(--line-on-ink); }
+  .product .tag { color: var(--muted-on-ink); border: 1px solid var(--line-on-ink); padding: 5px 10px; border-radius: 999px; font-size: 11px; }
+  .product h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(36px, 3.4vw, 50px);
+    line-height: 1; letter-spacing: -.02em;
+    margin-top: auto; padding-top: 48px;
+  }
+  .product p { color: var(--muted-on-ink); margin-top: 12px; font-size: 16px; line-height: 1.5; }
+  .product .foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--line-on-ink);
+    color: var(--muted-on-ink);
+  }
+  .product .foot b { color: var(--paper); font-weight: 500; }
+  .product .go {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: grid; place-items: center;
+    border: 1px solid var(--line-on-ink);
+    color: var(--paper);
+    transition: background .25s, color .25s, border-color .25s, transform .25s;
+  }
+  .product:hover .go { background: var(--tint); border-color: var(--tint); color: var(--ink); transform: rotate(-45deg); }
+  @media (max-width: 960px) { .products { grid-template-columns: 1fr; } .product { min-height: 0; } }
+
+  /* Experience */
+  .roles { border-top: 1px solid var(--ink); }
+  .role {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 5fr) minmax(0, 5fr);
+    gap: clamp(16px, 3vw, 48px);
+    padding: clamp(28px, 3.6vw, 52px) 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .role::before {
+    content: "";
+    position: absolute; left: 0; top: -1px;
+    width: 100%; height: 1px;
+    background: var(--hot);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+  }
+  .role:hover::before { transform: scaleX(1); }
+  .role .when { color: var(--muted); padding-top: 10px; }
+  .role h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(34px, 4.4vw, 64px);
+    line-height: 1; letter-spacing: -.025em;
+    transition: color .3s;
+  }
+  .role:hover h3 { color: var(--hot); }
+  .role h3 a { text-decoration: none; }
+  .role .title { margin-top: 10px; color: var(--muted); font-size: 16px; }
+  .role .title span { color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 2px 9px; margin-left: 8px; font-size: 11px; vertical-align: 2px; }
+  .role ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .role li { padding-left: 22px; position: relative; font-size: 16px; line-height: 1.5; }
+  .role li::before { content: "→"; position: absolute; left: 0; color: var(--hot); }
+  .role li strong { font-weight: 600; }
+  @media (max-width: 900px) { .role { grid-template-columns: 1fr; gap: 14px; } .role .when { padding-top: 0; } }
+
+  /* About */
+  .about { background: var(--paper-2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(32px, 6vw, 100px);
+  }
+  .about .statement {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+  }
+  .about .statement em { color: var(--hot); }
+  .about .body { margin-top: 28px; display: grid; gap: 16px; max-width: 36em; color: #3a372f; }
+  .facts { display: grid; gap: 0; align-content: start; border-top: 1px solid var(--ink); }
+  .fact { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .fact dt { color: var(--muted); padding-top: 3px; }
+  .fact dd { margin: 0; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack span { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 3px 8px; }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+
+  /* Contact */
+  .contact { background: var(--hot); color: var(--ink); padding-bottom: 0; overflow: hidden; }
+  .contact .mono { display: flex; gap: 14px; align-items: center; }
+  .contact .mono::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .contact h2 { font-size: clamp(48px, 9vw, 150px); line-height: .92; margin-top: 24px; max-width: 9em; }
+  .contact h2 em { color: var(--paper); }
+  .mail {
+    display: inline-flex; align-items: center; gap: .35em;
+    margin-top: clamp(32px, 4vw, 56px);
+    font-family: var(--serif);
+    font-size: clamp(26px, 4.2vw, 62px);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: .14em;
+    transition: color .2s;
+    word-break: break-all;
+  }
+  .mail:hover { color: var(--paper); }
+  .mail .arr { transition: transform .25s; text-decoration: none; display: inline-block; }
+  .mail:hover .arr { transform: translate(.12em, -.12em); }
+  .foot-bar {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 28px;
+    margin-top: clamp(64px, 9vw, 130px);
+    padding: 22px 0;
+    border-top: 1px solid var(--ink);
+  }
+  .foot-bar a { text-decoration: none; }
+  .foot-bar a:hover { text-decoration: underline; }
+  .foot-bar div { display: flex; gap: 24px; flex-wrap: wrap; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: var(--d, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  :focus-visible { outline: 2px solid var(--hot); outline-offset: 3px; border-radius: 4px; }
+  .contact :focus-visible { outline-color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    h1 .line > span { transform: none; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Victor Wang<i>.</i></a>
+    <nav class="nav-links mono" aria-label="Primary">
+      <a href="#products">Products</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a class="pill" href="mailto:rw498@cornell.edu">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero wrap">
+    <div class="eyebrow mono">
+      <span class="live"><span class="dot"></span>Building full-time</span>
+      <span>New York, NY</span>
+      <span>Cornell CS ’25</span>
+    </div>
+
+    <h1>
+      <span class="line"><span>I build AI products</span></span>
+      <span class="line"><span>that <em>ship</em>, and that</span></span>
+      <span class="line"><span>people <em>pay for</em>.</span></span>
+    </h1>
+
+    <div class="hero-grid">
+      <div>
+        <p class="lede">
+          I’m Victor, a founder-engineer. I was the <strong>primary engineer behind the AI search live on Coach, Kate Spade and Cartier</strong>, a founding engineer at a YC-backed startup, and I’ve taken three products of my own to market.
+        </p>
+        <div class="hero-cta">
+          <a class="btn solid" href="#products">See what I’ve shipped <span class="arr">↗</span></a>
+          <a class="btn ghost" href="mailto:rw498@cornell.edu">rw498@cornell.edu</a>
+        </div>
+      </div>
+
+      <div class="console" aria-label="Search Victor's background">
+        <div class="console-head mono">
+          <span>Query Victor</span>
+          <span><span class="dot"></span>ranked live</span>
+        </div>
+        <label class="qbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Ask anything about my work…" aria-label="Search Victor's background">
+        </label>
+        <div class="chips" id="chips">
+          <button class="chip" type="button">revenue</button>
+          <button class="chip" type="button">0→1</button>
+          <button class="chip" type="button">AI search</button>
+          <button class="chip" type="button">agents</button>
+          <button class="chip" type="button">mobile apps</button>
+          <button class="chip" type="button">YC</button>
+        </div>
+        <ol class="results" id="results" aria-live="polite"></ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span><small>Search live on</small>Coach</span>
+      <span>Kate Spade</span>
+      <span>Cartier</span>
+      <span><small>Founding eng at</small><em>YC-backed</em>&nbsp;Sixtyfour AI</span>
+      <span><small>2× SDE intern</small>Amazon</span>
+      <span><small>B.S. CS</small>Cornell</span>
+      <span><small>Shipped</small>Pip</span>
+      <span>PunchIQ</span>
+      <span>Break The Loop</span>
+    </div>
+  </div>
+
+  <section class="numbers">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">01 — The short version</div>
+        <h2>Small teams. <em>Real</em> revenue.</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat reveal">
+          <div class="big">$MM<sup>+</sup></div>
+          <p><strong>Millions in contract revenue</strong> driven by the AI search platform I built at Zoovu.</p>
+        </div>
+        <div class="stat reveal" style="--d:.08s">
+          <div class="big">2</div>
+          <p><strong>People on the team</strong> that put that platform into production. I was the primary engineer.</p>
+        </div>
+        <div class="stat reveal" style="--d:.16s">
+          <div class="big">$5K</div>
+          <p><strong>Profit in 4 months</strong> from my own mobile apps, with $0 spent on marketing.</p>
+        </div>
+        <div class="stat reveal" style="--d:.24s">
+          <div class="big">2<sup>wks</sup></div>
+          <p><strong>Concept to launch</strong> for Sixtyfour AI’s agent email platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" id="products">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">02 — Products of my own</div>
+        <div>
+          <h2>Built, launched and <em>monetized</em> solo.</h2>
+          <p class="sec-note">Outside of work I build my own products end to end: idea, design, code, App Store, paying users. No marketing budget, just distribution I figured out myself.</p>
+        </div>
+      </div>
+
+      <div class="products">
+        <a class="product reveal" style="--tint:#7db4ff" href="http://hipip.app" target="_blank" rel="noopener">
+          <div class="top">
+            <img src="assets/pip.png" alt="Pip icon" width="76" height="76">
+            <span class="tag mono">macOS · AI companion</span>
+          </div>
+          <h3>Pip</h3>
+          <p>An AI buddy for your Mac. It sees your screen, talks you through it, and points at exactly where to click, even when it takes several clicks.</p>
+          <div class="foot mono"><span>hipip.app</span><span class="go">→</span></div>
+        </a>
+
+        <a class="product reveal" style="--tint:#f2eee5; --d:.08s" href="https://apps.apple.com/us/app/punchiq/id6757319624" target="_blank" rel="noopener">
+          <div class="top">
+            <img src="assets/punchiq.jpg" alt="PunchIQ icon" width="76" height="76">
+            <span class="tag mono">iOS · Computer vision</span>
+          </div>
+          <h3>PunchIQ</h3>
+          <p>An AI boxing coach. Record your training and get instant video analysis of your stance, punch form, guard and footwork. Subscription app.</p>
+          <div class="foot mono"><span><b>4.8★</b> App Store</span><span class="go">→</span></div>
+        </a>
+
+        <a class="product reveal" style="--tint:#ff9a3d; --d:.16s" href="https://apps.apple.com/us/app/break-the-loop/id6760086205" target="_blank" rel="noopener">
+          <div class="top">
+            <img src="assets/breaktheloop.jpg" alt="Break The Loop icon" width="76" height="76">
+            <span class="tag mono">iOS · Habit recovery</span>
+          </div>
+          <h3>Break The Loop</h3>
+          <p>A Christian recovery app for breaking free from adult content: a 90-day program grounded in Scripture and neuroscience, with a one-tap panic button for the hardest moments.</p>
+          <div class="foot mono"><span><b>4.6★</b> App Store</span><span class="go">→</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">03 — Experience</div>
+        <h2>Where I learned to <em>own</em> the whole thing.</h2>
+      </div>
+
+      <div class="roles">
+        <article class="role reveal">
+          <div class="when mono">Oct 2025 — Sep 2026</div>
+          <div>
+            <h3><a href="https://zoovu.com/" target="_blank" rel="noopener">Zoovu</a></h3>
+            <p class="title">Applied AI Engineer</p>
+          </div>
+          <ul>
+            <li><strong>Primary engineer on a two-person team</strong> that built and productionized AI e-commerce search now live on Coach, Kate Spade and Cartier.</li>
+            <li>Owned the platform end to end: ML, backend, data pipelines and production operations across multiple retailers.</li>
+            <li>Built the real-time search engine: LLM query understanding, hybrid dense/sparse retrieval, structured filtering and neural reranking.</li>
+            <li>Built the catalog intelligence platform behind it: taxonomy generation, AI product enrichment, embeddings and incremental indexing.</li>
+          </ul>
+        </article>
+
+        <article class="role reveal">
+          <div class="when mono">Aug 2025 — Oct 2025</div>
+          <div>
+            <h3><a href="https://www.sixtyfour.ai/" target="_blank" rel="noopener">Sixtyfour AI</a></h3>
+            <p class="title">Founding Engineer <span class="mono">YC-backed</span></p>
+          </div>
+          <ul>
+            <li>Built core product and infrastructure for an <strong>AI agent email platform</strong>: autonomous inbox management and large-scale personalized outreach.</li>
+            <li>Shipped the unified inbox, automated campaigns and workflow tools, backend through user-facing design.</li>
+            <li>Took the product <strong>from concept to launch in 2 weeks</strong>.</li>
+          </ul>
+        </article>
+
+        <article class="role reveal">
+          <div class="when mono">Summers 2022 + 2023</div>
+          <div>
+            <h3>Amazon</h3>
+            <p class="title">Software Engineer Intern <span class="mono">×2</span></p>
+          </div>
+          <ul>
+            <li>Rebuilt the Ad Preview Portal frontend in Vue.js and TypeScript, cutting manual validation steps by <strong>30% across a 50+ engineer org</strong>.</li>
+            <li>Built tooling that surfaced real-time ad metrics in internal dashboards, improving data retrieval speed by <strong>150%+</strong>.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">04 — About</div>
+        <div></div>
+      </div>
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="statement">I like being the person who takes a product from a <em>blank repo</em> to <em>paying customers</em>, and owns every layer in between.</p>
+          <div class="body">
+            <p>I studied computer science at Cornell, interned twice at Amazon, then went straight to small teams where one engineer can move the whole product. At Sixtyfour AI I built AI agents for sales and business workflows. At Zoovu I was the primary engineer on a search platform that enterprise brands now run in production.</p>
+            <p>On my own time I build and sell consumer apps. That’s where I learned the parts engineering jobs don’t teach: finding a niche, getting distribution without a budget, and pricing something people will actually pay for.</p>
+            <p>I’m now focused on building as a full-time founder.</p>
+          </div>
+        </div>
+        <dl class="facts reveal" style="--d:.1s">
+          <div class="fact"><dt class="mono">Based</dt><dd>New York, NY</dd></div>
+          <div class="fact"><dt class="mono">Education</dt><dd>Cornell University, B.S. Computer Science, 2025</dd></div>
+          <div class="fact"><dt class="mono">Focus</dt><dd>AI search, agents, consumer apps</dd></div>
+          <div class="fact"><dt class="mono">AI / ML</dt><dd class="stack"><span>LLMs</span><span>RAG</span><span>Fine-tuning</span><span>Hybrid search</span><span>Embeddings</span><span>Reranking</span><span>LLM evals</span><span>PyTorch</span></dd></div>
+          <div class="fact"><dt class="mono">Systems</dt><dd class="stack"><span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>Pinecone</span><span>AWS</span><span>TypeScript</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="mono reveal">05 — Contact</div>
+      <h2 class="reveal">Let’s build something <em>people want</em>.</h2>
+      <a class="mail reveal" href="mailto:rw498@cornell.edu">rw498@cornell.edu <span class="arr">↗</span></a>
+      <div class="foot-bar mono">
+        <span>© <span id="yr">2026</span> Victor Wang</span>
+        <div>
+          <a href="https://github.com/victorw-repo" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="mailto:rw498@cornell.edu">Email ↗</a>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Nav background once the page scrolls
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 24);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Seamless marquee: duplicate the track contents
+  const track = document.getElementById('marquee');
+  track.innerHTML += track.innerHTML;
+
+  // Scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Product card glow follows the pointer
+  document.querySelectorAll('.product').forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ── Query console: a tiny keyword ranker over my background ──
+  const DOCS = [
+    { t: 'AI search live on Coach, Kate Spade & Cartier', d: 'Primary engineer on a two-person team at Zoovu. Drove millions in contract revenue.', href: '#experience',
+      k: 'zoovu search ai coach kate spade cartier retail ecommerce e-commerce enterprise revenue contract millions money retrieval ranking reranking hybrid dense sparse vector embeddings llm query rag ml production brands luxury applied engineer primary small team two' },
+    { t: 'Founding Engineer at YC-backed Sixtyfour AI', d: 'Built an AI agent email platform from concept to launch in 2 weeks.', href: '#experience',
+      k: 'sixtyfour yc ycombinator combinator startup founding founder engineer agents agent email inbox outreach sales gtm workflows campaigns 0→1 0-1 zero one launch fast speed weeks early stage' },
+    { t: '$5K profit in 4 months, $0 marketing', d: 'Solo-built mobile apps with paying subscribers and organic distribution.', href: '#products',
+      k: 'revenue profit money paying customers subscription mobile apps ios app store solo indie founder traction growth organic marketing distribution bootstrapped 0→1 0-1 zero one consumer monetize monetized' },
+    { t: 'Pip — an AI buddy for your Mac', d: 'Sees your screen, talks you through it, and points at exactly where to click.', href: '#products',
+      k: 'pip mac macos desktop ai companion buddy assistant screen voice agent agents product consumer multimodal vision hipip computer use' },
+    { t: 'PunchIQ — AI boxing coach', d: 'Video analysis of stance, form and footwork. 4.8★ on the App Store.', href: '#products',
+      k: 'punchiq boxing fitness health ios mobile apps app store computer vision video pose ai coach subscription consumer rating sports' },
+    { t: 'Break The Loop — faith-based recovery app', d: 'A 90-day habit-recovery program. 4.6★ on the App Store.', href: '#products',
+      k: 'break loop christian faith recovery habit habits ios mobile apps app store consumer subscription niche health wellness rating' },
+    { t: 'Amazon — SDE intern, twice', d: 'Ads org: Vue/TypeScript portal rebuild, real-time metrics tooling, SQL optimization.', href: '#experience',
+      k: 'amazon intern internship sde software engineer ads advertising vue typescript javascript python sql frontend dashboards big tech faang' },
+    { t: 'Cornell University — B.S. Computer Science', d: 'Class of 2025. Based in New York.', href: '#about',
+      k: 'cornell university education school degree cs computer science college ivy graduate 2025 new york nyc background about who' },
+    { t: 'Stack: LLMs, retrieval, and the plumbing under them', d: 'Python, PyTorch, FastAPI, PostgreSQL, Redis, Pinecone, AWS.', href: '#about',
+      k: 'stack skills tech python pytorch scikit fastapi postgres postgresql redis pinecone aws llm llms fine-tuning finetuning training nlp evaluation evals embeddings vector backend infrastructure technical' },
+  ];
+  const STOP = new Set('a an the of on in at to for and or is are was has have he his him you your i me my who what where when how did does do with by from that this it about any tell show'.split(' '));
+  const DEFAULT = [0, 2, 1];
+
+  const input = document.getElementById('q');
+  const list = document.getElementById('results');
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function rank(query) {
+    const tokens = query.toLowerCase().split(/[^a-z0-9$→\-]+/).filter((w) => w && !STOP.has(w));
+    if (!tokens.length) return DEFAULT.map((i, n) => ({ doc: DOCS[i], s: [0.98, 0.94, 0.91][n] }));
+    const scored = DOCS.map((doc) => {
+      const keys = doc.k.split(' ');
+      const text = (doc.t + ' ' + doc.d).toLowerCase();
+      let s = 0;
+      for (const w of tokens) {
+        if (keys.includes(w)) s += 3;
+        else if (w.length > 1 && keys.some((k) => k.startsWith(w))) s += 2;
+        else if (w.length > 2 && text.includes(w)) s += 1.5;
+      }
+      return { doc, s: s / (tokens.length * 3) };
+    }).filter((r) => r.s > 0).sort((a, b) => b.s - a.s).slice(0, 3);
+    return scored.map((r) => ({ doc: r.doc, s: Math.min(0.99, 0.55 + r.s * 0.44) }));
+  }
+
+  function render(query) {
+    const hits = rank(query);
+    if (!hits.length) {
+      list.innerHTML = `<li class="empty">Nothing indexed for “${esc(query)}” yet. Try <em>revenue</em>, <em>agents</em> or <em>YC</em>, or just <a href="mailto:rw498@cornell.edu">ask me directly</a>.</li>`;
+      return;
+    }
+    list.innerHTML = hits.map((h, i) => `
+      <li><a class="result" href="${h.doc.href}" style="animation-delay:${i * 60}ms">
+        <span class="rank">0${i + 1}</span>
+        <span><b>${esc(h.doc.t)}</b><small>${esc(h.doc.d)}</small></span>
+        <span class="score">${h.s.toFixed(2)}<i data-s="${h.s.toFixed(2)}"></i></span>
+      </a></li>`).join('');
+    requestAnimationFrame(() => list.querySelectorAll('.score i').forEach((b) => b.style.setProperty('--s', b.dataset.s)));
+  }
+
+  // Self-typing demo until the visitor takes over
+  const DEMO = ['who put AI search on coach.com?', 'has he made money on his own?', 'YC founding engineer', 'what can he build 0→1?'];
+  let demoOn = !reduced, timer;
+  const wait = (ms) => new Promise((r) => { timer = setTimeout(r, ms); });
+  async function demo() {
+    await wait(1600);
+    for (let n = 0; demoOn; n = (n + 1) % DEMO.length) {
+      const q = DEMO[n];
+      for (let i = 1; i <= q.length && demoOn; i++) { input.value = q.slice(0, i); await wait(42 + Math.random() * 40); }
+      if (!demoOn) break;
+      render(q);
+      await wait(3200);
+      for (let i = q.length; i >= 0 && demoOn; i--) { input.value = q.slice(0, i); await wait(14); }
+      await wait(350);
+    }
+  }
+  function stopDemo(clear) {
+    if (!demoOn) return;
+    demoOn = false;
+    clearTimeout(timer);
+    if (clear) { input.value = ''; render(''); }
+  }
+
+  input.addEventListener('focus', () => stopDemo(true));
+  input.addEventListener('input', () => { stopDemo(false); render(input.value); });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { const first = list.querySelector('.result'); if (first) first.click(); }
+  });
+  document.getElementById('chips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    stopDemo(false);
+    input.value = chip.textContent;
+    render(input.value);
+  });
+
+  render('');
+  demo();
+})();
+</script>
+</body>
+</html>
