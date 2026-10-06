@@ -497,8 +497,8 @@
 
   /* Contact */
   .contact { background: var(--hot); color: var(--ink); padding-bottom: 0; overflow: hidden; }
-  .contact .mono { display: flex; gap: 14px; align-items: center; }
-  .contact .mono::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .contact .sec-label { display: flex; gap: 14px; align-items: center; }
+  .contact .sec-label::before { content: ""; width: 28px; height: 1px; background: currentColor; }
   .contact h2 { font-size: clamp(48px, 9vw, 150px); line-height: .92; margin-top: 24px; max-width: 9em; }
   .contact h2 em { color: var(--paper); }
   .mail {
@@ -526,6 +526,24 @@
   .foot-bar a { text-decoration: none; }
   .foot-bar a:hover { text-decoration: underline; }
   .foot-bar div { display: flex; gap: 24px; flex-wrap: wrap; }
+
+  /* Phone overrides (kept last so they win over the base rules) */
+  @media (max-width: 640px) {
+    h1 { font-size: 12.4vw; }
+    .yc-badge { border-radius: 18px; line-height: 1.45; padding-right: 14px; }
+    .yc-badge b { flex: none; }
+    .yc-line { border-radius: 18px; line-height: 1.4; }
+    .yc-line .yc-mark { flex: none; }
+    .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
+    .foot-bar { flex-direction: column; }
+  }
+  @media (max-width: 420px) {
+    .traction > div { padding: 18px 16px 16px; }
+    .traction dt { font-size: 30px; }
+    .product { padding: 20px; }
+    .product .top { gap: 12px; }
+    .product .tag { font-size: 10px; letter-spacing: .04em; white-space: nowrap; padding: 5px 9px; }
+  }
 
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: var(--d, 0s); }
@@ -784,7 +802,7 @@
 
   <section class="contact" id="contact">
     <div class="wrap">
-      <div class="mono reveal">05 — Contact</div>
+      <div class="mono sec-label reveal">05 — Contact</div>
       <h2 class="reveal">Let’s build something <em>people want</em>.</h2>
       <a class="mail reveal" href="mailto:rw498@cornell.edu">rw498@cornell.edu <span class="arr">↗</span></a>
       <div class="foot-bar mono">
