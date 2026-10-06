@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Victor Wang — Founder-engineer building AI products</title>
-<meta name="description" content="Victor Wang builds AI products that ship and earn. Forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier; founding engineer at YC-backed Sixtyfour AI; three products of his own in market.">
+<meta name="description" content="Victor Wang builds AI products that ship and earn. Forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier; founding engineer at Y Combinator-backed Sixtyfour AI; three products of his own in market.">
 <meta property="og:title" content="Victor Wang — Founder-engineer building AI products">
-<meta property="og:description" content="AI search live on Coach, Kate Spade and Cartier. Founding engineer at a YC startup. Three products of his own, profitable with $0 in marketing.">
+<meta property="og:description" content="AI search live on Coach, Kate Spade and Cartier. Founding engineer at a Y Combinator-backed startup. Three products of his own, profitable with $0 in marketing.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://victorw-repo.github.io/">
 <meta name="theme-color" content="#f2eee5">
@@ -121,6 +121,20 @@
     70% { box-shadow: 0 0 0 10px rgba(255, 67, 25, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 67, 25, 0); }
   }
+  .yc-badge {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--ink); border-radius: 999px;
+    color: var(--ink); text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .yc-badge b, .yc-mark {
+    display: inline-grid; place-items: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--hot); color: var(--paper);
+    font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: 0;
+  }
+  .yc-badge:hover { background: var(--ink); color: var(--paper); }
   .eyebrow .live { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); }
 
   h1 {
@@ -435,6 +449,13 @@
   .role h3 a { text-decoration: none; }
   .role .title { margin-top: 10px; color: var(--muted); font-size: 16px; }
   .role .title span { color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 2px 9px; margin-left: 8px; font-size: 11px; vertical-align: 2px; }
+  .yc-line {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: 16px; padding: 6px 14px 6px 6px;
+    background: var(--ink); color: var(--paper);
+    border-radius: 999px;
+    font-size: 14px; font-weight: 500;
+  }
   .role ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
   .role li { padding-left: 22px; position: relative; font-size: 16px; line-height: 1.5; }
   .role li::before { content: "→"; position: absolute; left: 0; color: var(--hot); }
@@ -542,6 +563,7 @@
       <span class="live"><span class="dot"></span>Building full-time</span>
       <span>New York, NY</span>
       <span>Cornell CS ’25</span>
+      <a class="yc-badge" href="#sixtyfour"><b aria-hidden="true">Y</b>Founding engineer at a Y Combinator-backed startup</a>
     </div>
 
     <h1>
@@ -554,7 +576,7 @@
       <div>
         <img class="avatar" src="assets/victor.jpg" alt="Victor Wang" width="72" height="72">
         <p class="lede">
-          I’m Victor, a founder-engineer. I was the <strong>forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier</strong>, a founding engineer at a YC-backed startup, and I’ve taken three products of my own to close to 1,000 users.
+          I’m Victor, a founder-engineer. I was the <strong>forward-deployed AI engineer behind the search live on Coach, Kate Spade and Cartier</strong>, <strong>founding engineer at Sixtyfour AI, a Y Combinator-backed startup that has raised millions</strong>, and I’ve taken three products of my own to close to 1,000 users.
         </p>
         <div class="hero-cta">
           <a class="btn solid" href="#products">See what I’ve shipped <span class="arr">↗</span></a>
@@ -589,7 +611,8 @@
       <span><small>Search live on</small>Coach</span>
       <span>Kate Spade</span>
       <span>Cartier</span>
-      <span><small>Founding eng at</small><em>YC-backed</em>&nbsp;Sixtyfour AI</span>
+      <span><small>Founding engineer</small>Sixtyfour AI</span>
+      <span><em>Y Combinator-backed</em></span>
       <span><small>2× SDE intern</small>Amazon</span>
       <span><small>B.S. CS</small>Cornell</span>
       <span><small>Shipped</small>Pip</span>
@@ -619,7 +642,7 @@
         </div>
         <div class="stat reveal" style="--d:.24s">
           <div class="big">2<sup>wks</sup></div>
-          <p><strong>Concept to launch</strong> for Sixtyfour AI’s agent email platform.</p>
+          <p><strong>Concept to launch</strong> as founding engineer at Y Combinator-backed Sixtyfour AI.</p>
         </div>
       </div>
     </div>
@@ -698,13 +721,15 @@
           </ul>
         </article>
 
-        <article class="role reveal">
+        <article class="role reveal" id="sixtyfour">
           <div class="when mono">Aug 2025 — Oct 2025</div>
           <div>
             <h3><a href="https://www.sixtyfour.ai/" target="_blank" rel="noopener">Sixtyfour AI</a></h3>
-            <p class="title">Founding Engineer <span class="mono">YC-backed</span></p>
+            <p class="title">Founding Engineer</p>
+            <p class="yc-line"><span class="yc-mark" aria-hidden="true">Y</span>Y Combinator-backed · Raised millions in venture funding</p>
           </div>
           <ul>
+            <li><strong>Founding engineer at a Y Combinator-backed startup</strong> that has raised millions in venture funding.</li>
             <li>Built core product and infrastructure for an <strong>AI agent email platform</strong>: autonomous inbox management and large-scale personalized outreach.</li>
             <li>Shipped the unified inbox, automated campaigns and workflow tools, backend through user-facing design.</li>
             <li>Took the product <strong>from concept to launch in 2 weeks</strong>.</li>
@@ -736,7 +761,7 @@
         <div class="reveal">
           <p class="statement">I like being the person who takes a product from a <em>blank repo</em> to <em>paying customers</em>, and owns every layer in between.</p>
           <div class="body">
-            <p>I studied computer science at Cornell, interned twice at Amazon, then went straight to small teams where one engineer can move the whole product. At Sixtyfour AI I built AI agents for sales and business workflows. At Zoovu I was the forward-deployed AI engineer on a two-person team: I wrote nearly all of the code for a search platform that enterprise brands now run in production, and I was the one talking to those customers.</p>
+            <p>I studied computer science at Cornell, interned twice at Amazon, then went straight to small teams where one engineer can move the whole product. I joined Sixtyfour AI, a Y Combinator-backed startup that has raised millions, as a founding engineer and built AI agents for sales and business workflows. At Zoovu I was the forward-deployed AI engineer on a two-person team: I wrote nearly all of the code for a search platform that enterprise brands now run in production, and I was the one talking to those customers.</p>
             <p>On my own time I build and sell consumer apps. That’s where I learned the parts engineering jobs don’t teach: finding a niche, getting distribution without a budget, and pricing something people will actually pay for.</p>
             <p>In September 2026 I left to focus full-time on building my own business.</p>
           </div>
@@ -810,8 +835,8 @@
   const DOCS = [
     { t: 'AI search live on Coach, Kate Spade & Cartier', d: 'Forward-deployed AI engineer on a two-person team at Zoovu. Close to $2M in contract revenue.', href: '#experience',
       k: 'zoovu search ai coach kate spade cartier retail ecommerce e-commerce enterprise revenue contract millions money retrieval ranking reranking hybrid dense sparse vector embeddings llm query rag ml production brands luxury applied engineer primary small team two forward deployed fde customers customer clients sales' },
-    { t: 'Founding Engineer at YC-backed Sixtyfour AI', d: 'Built an AI agent email platform from concept to launch in 2 weeks.', href: '#experience',
-      k: 'sixtyfour yc ycombinator combinator startup founding founder engineer agents agent email inbox outreach sales gtm workflows campaigns 0→1 0-1 zero one launch fast speed weeks early stage' },
+    { t: 'Founding Engineer at Y Combinator-backed Sixtyfour AI', d: 'The startup has raised millions. Took its AI agent email platform from concept to launch in 2 weeks.', href: '#experience',
+      k: 'sixtyfour yc y ycombinator combinator backed funding raised venture startup founding founder engineer agents agent email inbox outreach sales gtm workflows campaigns 0→1 0-1 zero one launch fast speed weeks early stage' },
     { t: '~1,000 users and $5K profit, $0 marketing', d: 'Solo-built apps: thousands of downloads in 4 months, all organic.', href: '#products',
       k: 'revenue profit money paying customers subscription mobile apps ios app store solo indie founder traction users downloads growth organic marketing distribution bootstrapped 0→1 0-1 zero one consumer monetize monetized' },
     { t: 'Pip — an AI buddy for your Mac', d: 'Sees your screen, talks you through it, and points at exactly where to click.', href: '#products',
